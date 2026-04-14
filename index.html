@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>songs that made me cry</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            background-color: #F4F0E6;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px);
+            color: #222222;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 28px;
+            text-align: center;
+            border-bottom: 4px double #9B4A34;
+            padding-bottom: 12px;
+            margin-bottom: 8px;
+            margin-top: 0;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            font-size: 16px;
+            color: #4F6A89;
+            margin-bottom: 24px;
+            margin-top: 0;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #9B4A34;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+            margin: 24px 0;
+        }
+        
+        .song {
+            border: 2px outset #4F6A89;
+            background-color: #fff;
+            padding: 16px;
+            margin-bottom: 24px;
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        }
+        
+        .song-header {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        
+        .album-art {
+            width: 80px;
+            height: 80px;
+            border: 2px inset #999;
+            flex-shrink: 0;
+        }
+        
+        .song-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .song-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 0 0 4px 0;
+        }
+        
+        .song-title::before {
+            content: "#" attr(data-index) " ";
+            color: #7A3A29;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            margin-right: 4px;
+        }
+        
+        .song-artist {
+            font-size: 16px;
+            color: #4F6A89;
+            margin: 0 0 4px 0;
+        }
+        
+        .song-duration {
+            font-size: 14px;
+            color: #666;
+            font-family: "Courier New", monospace;
+        }
+        
+        .song-date {
+            font-size: 12px;
+            color: #7A3A29;
+            font-family: "Courier New", monospace;
+            margin-top: 4px;
+            display: block;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .context {
+            margin-top: 16px;
+            margin-bottom: 16px;
+            padding-left: 15px;
+            border-left: 3px solid #4F6A89;
+            font-style: italic;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .label {
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #9B4A34;
+            margin-right: 8px;
+            font-size: 13px;
+            font-style: normal;
+        }
+        
+        .context::before {
+            content: "[ ";
+            color: #9B4A34;
+        }
+        
+        .context::after {
+            content: " ]";
+            color: #9B4A34;
+        }
+        
+        .listen-link {
+            display: inline-block;
+            margin-top: 0;
+            color: #000;
+            text-decoration: none;
+            font-size: 14px;
+            border: 2px outset #999;
+            padding: 6px 12px;
+            background-color: #ddd;
+        }
+        
+        .listen-link:hover {
+            background-color: #222;
+            color: #fff;
+            border-color: #000;
+            border-style: inset;
+        }
+        
+        .listen-link:visited {
+            color: #4F6A89;
+        }
+        
+        .listen-link:visited:hover {
+            background-color: #222;
+            color: #fff;
+            border-color: #000;
+            border-style: inset;
+        }
+        
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid #ccc;
+        }
+        
+        footer a {
+            color: #9B4A34;
+        }
+        
+        
+        /* Mobile responsive - maintain font sizes, adjust layout */
+        @media (max-width: 480px) {
+            body {
+                padding: 20px;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .song {
+                padding: 14px;
+                margin-bottom: 20px;
+            }
+            
+            .song-header {
+                gap: 14px;
+            }
+            
+            .album-art {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>songs that made me cry</h1>
+        <p class="subtitle">a small, but important, collection of songs</p>
+        <p class="subtitle">by: Dave Hawkins</p>
+        
+        <hr>
+        
+        <div class="song">
+            <div class="song-header">
+                <img src="album_art/Eleri_Ward_Willlibethesun.jpg" alt="Will I Be the Sun album art" class="album-art">
+                <div class="song-info">
+                    <p class="song-title" data-index="005">Will I Be the Sun</p>
+                    <p class="song-artist">Eleri Ward</p>
+                    <span class="song-duration">3:33</span>
+                    <span class="song-date">made me cry: April 14th, 2026</span>
+                </div>
+            </div>
+            <p class="context"><span class="label">When:</span> on the way home from a dr appt</p>
+            <a href="https://eleriward.bandcamp.com/track/will-i-be-the-sun" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
+        </div>
+        
+        <div class="song">
+            <div class="song-header">
+                <img src="album_art/iamsafe_beautiful_chorus.jpg" alt="I Am Safe album art" class="album-art">
+                <div class="song-info">
+                    <p class="song-title" data-index="004">I Am Safe</p>
+                    <p class="song-artist">Beautiful Chorus</p>
+                    <span class="song-duration">7:01</span>
+                    <span class="song-date">made me cry: February 4th, 2026</span>
+                </div>
+            </div>
+            <p class="context"><span class="label">When:</span> during a brief guided meditation on a work trip in my hotel room in Moses Lake, WA</p>
+            <a href="https://beautifulchorus.bandcamp.com/track/i-am-safe" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
+        </div>
+        
+        <div class="song">
+            <div class="song-header">
+                <img src="album_art/microwavedinner_petey.jpg" alt="Microwave Dinner album art" class="album-art">
+                <div class="song-info">
+                    <p class="song-title" data-index="003">Microwave Dinner</p>
+                    <p class="song-artist">Petey USA</p>
+                    <span class="song-duration">4:42</span>
+                    <span class="song-date">made me cry: November 22nd, 2025</span>
+                </div>
+            </div>
+            <p class="context"><span class="label">When:</span> on a morning run at 5:15am</p>
+            <a href="https://terriblerecords.bandcamp.com/track/microwave-dinner" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
+        </div>
+        
+        <div class="song">
+            <div class="song-header">
+                <img src="album_art/oneseatdown_jacobjeffries.jpg" alt="One Seat Down album art" class="album-art">
+                <div class="song-info">
+                    <p class="song-title" data-index="002">One Seat Down</p>
+                    <p class="song-artist">Jacob Jeffries</p>
+                    <span class="song-duration">4:51</span>
+                    <span class="song-date">made me cry: September 5th, 2025</span>
+                </div>
+            </div>
+            <p class="context"><span class="label">When:</span> on a morning run at 5:45am</p>
+            <a href="https://jacobjeffries.bandcamp.com/track/one-seat-down" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
+        </div>
+        
+        <div class="song">
+            <div class="song-header">
+                <img src="album_art/theo_katzman_nobodylovesyoulikeyourmother.jpg" alt="Nobody Loves You Like Your Mother album art" class="album-art">
+                <div class="song-info">
+                    <p class="song-title" data-index="001">Nobody Loves You Like Your Mother</p>
+                    <p class="song-artist">Theo Katzman</p>
+                    <span class="song-duration">5:06</span>
+                    <span class="song-date">made me cry: April 12th, 2023</span>
+                </div>
+            </div>
+            <p class="context"><span class="label">When:</span> live in concert holding my wife; pregnant with our 3rd child</p>
+            <a href="https://theokatzman.bandcamp.com/track/nobody-loves-you-like-your-mother" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
+        </div>
+        
+        <hr>
+        
+        <footer>
+            <p>&#128197; last updated: 2026</p>
+            <p><a href="https://links.iamdavehawkins.com">&#8592; back to links</a></p>
+        </footer>
+        
+    </div>
+</body>
+</html>
