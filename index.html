@@ -6,6 +6,10 @@
     <title>songs that made me cry</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Georgia, "Times New Roman", serif;
             background-color: #F4F0E6;
@@ -14,62 +18,85 @@
                 repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px);
             color: #222222;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             line-height: 1.6;
             font-size: 16px;
         }
         
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
+        header {
+            text-align: center;
+            padding: 20px 20px 0;
         }
         
         h1 {
-            font-size: 28px;
-            text-align: center;
+            font-size: 24px;
             border-bottom: 4px double #9B4A34;
-            padding-bottom: 12px;
-            margin-bottom: 8px;
-            margin-top: 0;
+            padding-bottom: 10px;
+            margin: 0 0 6px 0;
             letter-spacing: 2px;
             text-transform: lowercase;
         }
         
         .subtitle {
-            text-align: center;
             font-style: italic;
-            font-size: 16px;
+            font-size: 14px;
             color: #4F6A89;
-            margin-bottom: 24px;
-            margin-top: 0;
+            margin: 0;
         }
         
-        hr {
-            border: none;
-            border-top: 1px solid #9B4A34;
-            box-shadow: 0 1px 0 rgba(255,255,255,0.8);
-            margin: 24px 0;
-        }
-        
-        .song {
-            border: 2px outset #4F6A89;
-            background-color: #fff;
-            padding: 16px;
-            margin-bottom: 24px;
-            box-shadow: 1px 1px 0 rgba(0,0,0,0.1);
-        }
-        
-        .song-header {
+        /* Card Carousel */
+        .carousel-container {
             display: flex;
-            gap: 16px;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+        
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            gap: 20px;
+            padding: 0 20px;
             align-items: flex-start;
         }
         
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .carousel {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .card {
+            scroll-snap-align: center;
+            flex: 0 0 calc(100vw - 60px);
+            max-width: 500px;
+            background: #fff;
+            border: 2px solid #4F6A89;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: visible;
+            height: auto;
+        }
+        
+        .card-header {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+        
         .album-art {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border: 2px inset #999;
             flex-shrink: 0;
+            object-fit: cover;
         }
         
         .song-info {
@@ -77,52 +104,49 @@
             min-width: 0;
         }
         
-        .song-title {
+        .song-number {
+            font-family: "Courier New", monospace;
+            font-size: 12px;
+            color: #9B4A34;
             font-weight: bold;
-            font-size: 18px;
-            margin: 0 0 4px 0;
         }
         
-        .song-title::before {
-            content: "#" attr(data-index) " ";
-            color: #7A3A29;
-            font-family: "Courier New", monospace;
-            font-size: 14px;
-            margin-right: 4px;
+        .song-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin: 2px 0;
+            color: #222;
         }
         
         .song-artist {
-            font-size: 16px;
+            font-size: 14px;
             color: #4F6A89;
-            margin: 0 0 4px 0;
+            margin: 0;
         }
         
-        .song-duration {
-            font-size: 14px;
+        .song-meta {
+            font-size: 11px;
             color: #666;
             font-family: "Courier New", monospace;
+            margin-top: 4px;
         }
         
-        .song-date {
-            font-size: 12px;
-            color: #7A3A29;
-            font-family: "Courier New", monospace;
-            margin-top: 4px;
-            display: block;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .card-body {
+            padding: 16px;
+            font-size: 14px;
         }
         
         .context {
-            margin-top: 16px;
-            margin-bottom: 16px;
-            padding-left: 15px;
+            margin: 0 0 12px 0;
+            padding-left: 12px;
             border-left: 3px solid #4F6A89;
             font-style: italic;
-            font-size: 16px;
             color: #444;
-            line-height: 1.8;
+            line-height: 1.6;
+        }
+        
+        .context:last-of-type {
+            margin-bottom: 0;
         }
         
         .label {
@@ -130,56 +154,65 @@
             font-weight: bold;
             text-transform: uppercase;
             color: #9B4A34;
-            margin-right: 8px;
-            font-size: 13px;
+            font-size: 11px;
             font-style: normal;
+            display: block;
+            margin-bottom: 4px;
         }
         
-        .context::before {
-            content: "[ ";
-            color: #9B4A34;
+        .card-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #eee;
         }
         
-        .context::after {
-            content: " ]";
-            color: #9B4A34;
+        .card-footer iframe {
+            border: 0;
+            width: 100%;
+            height: 42px;
         }
         
-        .listen-link {
-            display: inline-block;
-            margin-top: 0;
-            color: #000;
-            text-decoration: none;
-            font-size: 14px;
-            border: 2px outset #999;
-            padding: 6px 12px;
-            background-color: #ddd;
+        /* Dots Navigation */
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 20px;
         }
         
-        .listen-link:hover {
-            background-color: #222;
-            color: #fff;
-            border-color: #000;
-            border-style: inset;
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ccc;
+            border: 1px solid #999;
+            cursor: pointer;
+            transition: all 0.2s;
         }
         
-        .listen-link:visited {
-            color: #4F6A89;
+        .dot.active {
+            background: #9B4A34;
+            border-color: #7A3A29;
         }
         
-        .listen-link:visited:hover {
-            background-color: #222;
-            color: #fff;
-            border-color: #000;
-            border-style: inset;
+        .dot:hover {
+            background: #4F6A89;
         }
         
+        /* Counter */
+        .counter {
+            text-align: center;
+            font-family: "Courier New", monospace;
+            font-size: 12px;
+            color: #666;
+            padding-bottom: 8px;
+        }
+        
+        /* Footer */
         footer {
             text-align: center;
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
-            margin-top: 32px;
-            padding-top: 16px;
+            padding: 12px 20px;
             border-top: 1px solid #ccc;
         }
         
@@ -187,122 +220,294 @@
             color: #9B4A34;
         }
         
+        /* Swipe hint */
+        .hint {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            font-style: italic;
+            padding: 0 20px 8px;
+        }
         
-        /* Mobile responsive - maintain font sizes, adjust layout */
-        @media (max-width: 480px) {
-            body {
-                padding: 20px;
+        @media (min-width: 600px) {
+            .carousel {
+                padding: 0 20px;
             }
             
-            .container {
-                max-width: 100%;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            .song {
-                padding: 14px;
-                margin-bottom: 20px;
-            }
-            
-            .song-header {
-                gap: 14px;
+            .card {
+                flex: 0 0 500px;
             }
             
             .album-art {
-                width: 70px;
-                height: 70px;
+                width: 120px;
+                height: 120px;
+            }
+            
+            .song-title {
+                font-size: 20px;
+            }
+            
+            .card-body {
+                font-size: 15px;
+            }
+        }
+        
+        @media (min-width: 900px) {
+            h1 {
+                font-size: 28px;
+            }
+            
+            .card {
+                flex: 0 0 550px;
+                max-width: 550px;
+            }
+            
+            .card-header {
+                padding: 20px;
+                gap: 16px;
+            }
+            
+            .card-body {
+                padding: 20px;
+                font-size: 16px;
+            }
+            
+            .card-footer {
+                padding: 16px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>songs that made me cry</h1>
-        <p class="subtitle">a small, but important, collection of songs</p>
-        <p class="subtitle">by: Dave Hawkins</p>
+        <p class="subtitle">a small, but important, collection</p>
+    </header>
+    
+    <div class="carousel-container">
+        <p class="hint">← swipe to browse →</p>
         
-        <hr>
-        
-        <div class="song">
-            <div class="song-header">
-                <img src="album_art/Eleri_Ward_Willlibethesun.jpg" alt="Will I Be the Sun album art" class="album-art">
-                <div class="song-info">
-                    <p class="song-title" data-index="005">Will I Be the Sun</p>
-                    <p class="song-artist">Eleri Ward</p>
-                    <span class="song-duration">3:33</span>
-                    <span class="song-date">made me cry: April 14th, 2026</span>
+        <div class="carousel" id="carousel">
+            <div class="card" data-index="0">
+                <div class="card-header">
+                    <img src="album_art/arkansas_benjaminjaffe.jpg" alt="Arkansas album art" class="album-art">
+                    <div class="song-info">
+                        <span class="song-number">#006</span>
+                        <p class="song-title">Arkansas</p>
+                        <p class="song-artist">Benjamin Jaffe</p>
+                        <p class="song-meta">6:08 · May 17th, 2026</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="context">
+                        <span class="label">When</span>
+                        on a run at 5:30am
+                    </div>
+                    <div class="context">
+                        <span class="label">Why</span>
+                        "She said Daddy I'm afraid and I don't wanna die / and I could hear that awful storm and the tears falling from her eyes / she told me that she loved me and said a quick goodbye / then the message it just stopped abrupt and I couldn't stop crying"
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3487166934/size=small/bgcol=F4F0E6/linkcol=9B4A34/track=2972508449/transparent=true/" seamless></iframe>
                 </div>
             </div>
-            <p class="context"><span class="label">When:</span> on the way home from a dr appt</p>
-            <a href="https://eleriward.bandcamp.com/track/will-i-be-the-sun" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
-        </div>
-        
-        <div class="song">
-            <div class="song-header">
-                <img src="album_art/iamsafe_beautiful_chorus.jpg" alt="I Am Safe album art" class="album-art">
-                <div class="song-info">
-                    <p class="song-title" data-index="004">I Am Safe</p>
-                    <p class="song-artist">Beautiful Chorus</p>
-                    <span class="song-duration">7:01</span>
-                    <span class="song-date">made me cry: February 4th, 2026</span>
+            
+            <div class="card" data-index="1">
+                <div class="card-header">
+                    <img src="album_art/Eleri_Ward_Willlibethesun.jpg" alt="Will I Be the Sun album art" class="album-art">
+                    <div class="song-info">
+                        <span class="song-number">#005</span>
+                        <p class="song-title">Will I Be the Sun</p>
+                        <p class="song-artist">Eleri Ward</p>
+                        <p class="song-meta">3:33 · April 14th, 2026</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="context">
+                        <span class="label">When</span>
+                        on the way home from a dr appt
+                    </div>
+                    <div class="context">
+                        <span class="label">Why</span>
+                        "Will the warmth soon come? Will it thaw out my love? Where my life feels like enough / Will I be the sun?"
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <iframe src="https://bandcamp.com/EmbeddedPlayer/track=1661274402/size=small/bgcol=F4F0E6/linkcol=9B4A34/transparent=true/" seamless></iframe>
                 </div>
             </div>
-            <p class="context"><span class="label">When:</span> during a brief guided meditation on a work trip in my hotel room in Moses Lake, WA</p>
-            <a href="https://beautifulchorus.bandcamp.com/track/i-am-safe" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
-        </div>
-        
-        <div class="song">
-            <div class="song-header">
-                <img src="album_art/microwavedinner_petey.jpg" alt="Microwave Dinner album art" class="album-art">
-                <div class="song-info">
-                    <p class="song-title" data-index="003">Microwave Dinner</p>
-                    <p class="song-artist">Petey USA</p>
-                    <span class="song-duration">4:42</span>
-                    <span class="song-date">made me cry: November 22nd, 2025</span>
+            
+            <div class="card" data-index="2">
+                <div class="card-header">
+                    <img src="album_art/iamsafe_beautiful_chorus.jpg" alt="I Am Safe album art" class="album-art">
+                    <div class="song-info">
+                        <span class="song-number">#004</span>
+                        <p class="song-title">I Am Safe</p>
+                        <p class="song-artist">Beautiful Chorus</p>
+                        <p class="song-meta">7:01 · February 4th, 2026</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="context">
+                        <span class="label">When</span>
+                        during a brief guided meditation on a work trip in my hotel room in Moses Lake, WA
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2222442638/size=small/bgcol=F4F0E6/linkcol=9B4A34/track=3046506853/transparent=true/" seamless></iframe>
                 </div>
             </div>
-            <p class="context"><span class="label">When:</span> on a morning run at 5:15am</p>
-            <a href="https://terriblerecords.bandcamp.com/track/microwave-dinner" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
-        </div>
-        
-        <div class="song">
-            <div class="song-header">
-                <img src="album_art/oneseatdown_jacobjeffries.jpg" alt="One Seat Down album art" class="album-art">
-                <div class="song-info">
-                    <p class="song-title" data-index="002">One Seat Down</p>
-                    <p class="song-artist">Jacob Jeffries</p>
-                    <span class="song-duration">4:51</span>
-                    <span class="song-date">made me cry: September 5th, 2025</span>
+            
+            <div class="card" data-index="3">
+                <div class="card-header">
+                    <img src="album_art/microwavedinner_petey.jpg" alt="Microwave Dinner album art" class="album-art">
+                    <div class="song-info">
+                        <span class="song-number">#003</span>
+                        <p class="song-title">Microwave Dinner</p>
+                        <p class="song-artist">Petey</p>
+                        <p class="song-meta">4:42 · November 22nd, 2025</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="context">
+                        <span class="label">When</span>
+                        on a morning run at 5:15am
+                    </div>
+                    <div class="context">
+                        <span class="label">Why</span>
+                        "I remember that night, it was the night we met / Yeah, we drank three dollar wine to ease our existential dread / My head was on your chest; I remember you asked me / Have you ever told a lie?"
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1582615201/size=small/bgcol=F4F0E6/linkcol=9B4A34/track=2496285700/transparent=true/" seamless></iframe>
                 </div>
             </div>
-            <p class="context"><span class="label">When:</span> on a morning run at 5:45am</p>
-            <a href="https://jacobjeffries.bandcamp.com/track/one-seat-down" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
-        </div>
-        
-        <div class="song">
-            <div class="song-header">
-                <img src="album_art/theo_katzman_nobodylovesyoulikeyourmother.jpg" alt="Nobody Loves You Like Your Mother album art" class="album-art">
-                <div class="song-info">
-                    <p class="song-title" data-index="001">Nobody Loves You Like Your Mother</p>
-                    <p class="song-artist">Theo Katzman</p>
-                    <span class="song-duration">5:06</span>
-                    <span class="song-date">made me cry: April 12th, 2023</span>
+            
+            <div class="card" data-index="4">
+                <div class="card-header">
+                    <img src="album_art/oneseatdown_jacobjeffries.jpg" alt="One Seat Down album art" class="album-art">
+                    <div class="song-info">
+                        <span class="song-number">#002</span>
+                        <p class="song-title">One Seat Down</p>
+                        <p class="song-artist">Jacob Jeffries</p>
+                        <p class="song-meta">4:51 · September 5th, 2025</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="context">
+                        <span class="label">When</span>
+                        on a morning run at 5:45am
+                    </div>
+                    <div class="context">
+                        <span class="label">Why</span>
+                        "I used to crawl to your bedside when you were squirming through a heavy dream / Back when the scary part of a Pixar movie made you scream / And I love how you thought money was just kisses from a dog / Yeah one day you'll stop thinking out loud / And you'll keep scooting one seat down"
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2678082347/size=small/bgcol=F4F0E6/linkcol=9B4A34/track=2516865315/transparent=true/" seamless></iframe>
                 </div>
             </div>
-            <p class="context"><span class="label">When:</span> live in concert holding my wife; pregnant with our 3rd child</p>
-            <a href="https://theokatzman.bandcamp.com/track/nobody-loves-you-like-your-mother" class="listen-link" target="_blank">&#9834; listen on bandcamp</a>
+            
+            <div class="card" data-index="5">
+                <div class="card-header">
+                    <img src="album_art/theo_katzman_nobodylovesyoulikeyourmother.jpg" alt="Nobody Loves You Like Your Mother album art" class="album-art">
+                    <div class="song-info">
+                        <span class="song-number">#001</span>
+                        <p class="song-title">Nobody Loves You Like Your Mother</p>
+                        <p class="song-artist">Theo Katzman</p>
+                        <p class="song-meta">5:06 · April 12th, 2023</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="context">
+                        <span class="label">When</span>
+                        live in concert holding my wife; pregnant with our 3rd child
+                    </div>
+                    <div class="context">
+                        <span class="label">Why</span>
+                        "Nobody loves you like your mother, nobody loves you like that girl / Not your father, sister, or brother, nobody in this whole damn world / And when she leaves me to go her own way, I will be broken, I won't be ok"
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <iframe src="https://bandcamp.com/EmbeddedPlayer/album=663823341/size=small/bgcol=F4F0E6/linkcol=9B4A34/track=2336296099/transparent=true/" seamless></iframe>
+                </div>
+            </div>
         </div>
         
-        <hr>
+        <div class="counter" id="counter">1 of 6</div>
         
-        <footer>
-            <p>&#128197; last updated: 2026</p>
-            <p><a href="https://links.iamdavehawkins.com">&#8592; back to links</a></p>
-        </footer>
-        
+        <div class="dots" id="dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+            <span class="dot" data-index="4"></span>
+            <span class="dot" data-index="5"></span>
+        </div>
     </div>
+    
+    <footer>
+        <a href="https://links.iamdavehawkins.com">← back to links</a> · Dave Hawkins
+    </footer>
+    
+    <script>
+        const carousel = document.getElementById('carousel');
+        const dots = document.querySelectorAll('.dot');
+        const counter = document.getElementById('counter');
+        const cards = document.querySelectorAll('.card');
+        const totalCards = cards.length;
+        
+        function updateIndicators(index) {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            counter.textContent = `${index + 1} of ${totalCards}`;
+        }
+        
+        // Scroll detection
+        let scrollTimeout;
+        carousel.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollLeft = carousel.scrollLeft;
+                const cardWidth = cards[0].offsetWidth + 20; // include gap
+                const index = Math.round(scrollLeft / cardWidth);
+                updateIndicators(Math.min(index, totalCards - 1));
+            }, 50);
+        });
+        
+        // Dot click navigation
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.dataset.index);
+                const card = cards[index];
+                card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            });
+        });
+        
+        // Keyboard navigation for desktop
+        let currentIndex = 0;
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentIndex < totalCards - 1) {
+                currentIndex++;
+                cards[currentIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                currentIndex--;
+                cards[currentIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        });
+        
+        // Keep currentIndex in sync with scroll
+        carousel.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollLeft = carousel.scrollLeft;
+                const cardWidth = cards[0].offsetWidth + 20;
+                currentIndex = Math.round(scrollLeft / cardWidth);
+                currentIndex = Math.min(Math.max(currentIndex, 0), totalCards - 1);
+            }, 50);
+        });
+    </script>
 </body>
 </html>
